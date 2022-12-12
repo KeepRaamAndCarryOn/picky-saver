@@ -9,3 +9,7 @@ chrome.tabs.onCreated.addListener((tab) => {
 chrome.downloads.onCreated.addListener((downloadItem) => {
   console.log("background: downloads onCreated ", downloadItem)
   });
+
+chrome.downloads.onDeterminingFilename.addListener((downloadItem) => {
+  console.log("background downloads onDeterminingFilename ", downloadItem.filename, downloadItem)
+});
