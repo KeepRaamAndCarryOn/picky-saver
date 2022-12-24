@@ -20,8 +20,8 @@ chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggest) => {
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
-    "id": "customDownload",
-    "title": "My custom download",
+    "id": "jiraAttachment",
+    "title": "Save JIRA Attachment",
     "contexts": ["link"],
     "documentUrlPatterns": [jiraFilter],
     "targetUrlPatterns": [jiraAttachmentLinkFilter]
