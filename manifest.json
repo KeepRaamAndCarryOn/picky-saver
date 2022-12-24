@@ -2,11 +2,13 @@
     "manifest_version": 3,
     "name": "Picky saver",
     "version": "1.0",
-    "description": "Automate custom download paths",
-    "action": {
-        "default_popup": "hello.html",
-        "default_icon": "hello_extensions.png"
-    },
+    "description": "Save JIRA attachments with ticket number in file names",
+    "icons": {
+        "16": "icons/icon16.png",
+        "32": "icons/icon32.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+      },
     "content_scripts": [
         {
             "js": [
