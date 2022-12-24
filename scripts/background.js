@@ -22,11 +22,16 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     "id": "customDownload",
     "title": "My custom download",
-    "contexts": ["link"]
+    "contexts": ["link"],
+    "documentUrlPatterns": [jiraFilter],
+    "targetUrlPatterns": [jiraAttachmentLinkFilter]
   });
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-    console.log(info)
-    console.log(tab)
+    console.log(info);
+    console.log(tab);
 });
+
+const jiraFilter = "*://jira.configura.com/*"
+const jiraAttachmentLinkFilter = "*://jira.configura.com/secure/attachment/*"
