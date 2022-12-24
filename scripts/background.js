@@ -30,8 +30,20 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     console.log(info);
-    console.log(tab);
+    //console.log(tab);
+    let pageUrl = info.pageUrl;
+    console.log(pageUrl);
+    regRes = pageUrl.match(reJiraTicketFromUrl);
+    if (regRes) {
+      let ticketNum = regRes[0]
+      console.log(ticketNum)
+      let filename = info.linkUrl.match(reFileFromPath)[0];
+      console.log(filename)
+    }
 });
 
 const jiraFilter = "*://jira.configura.com/*"
 const jiraAttachmentLinkFilter = "*://jira.configura.com/secure/attachment/*"
+
+const reJiraTicketFromUrl = /((?<!([A-Z]{1,10})-?)[A-Z]+-\d+)/
+const reFileFromPath = /[^\/]+$/
