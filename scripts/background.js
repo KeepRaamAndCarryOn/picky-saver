@@ -10,14 +10,6 @@ chrome.downloads.onCreated.addListener((downloadItem) => {
   console.log("background: downloads onCreated ", downloadItem)
 });
 
-chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggest) => {
-  console.log("background downloads onDeterminingFilename ", downloadItem.url, downloadItem)
-  sugg = {
-    filename: "sub/top.pdf" //note automatically creates "sub" folder
-  };
-  suggest(sugg);
-});
-
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     "id": "jiraAttachment",
@@ -39,6 +31,12 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       console.log(ticketNum)
       let filename = info.linkUrl.match(reFileFromPath)[0];
       console.log(filename)
+      newFilename = ticketNum + "_" + filename;
+      console.log(newFilename)
+      chrome.downloads.download({
+        "url": info.linkUrl,
+        "filename": newFilename
+      });
     }
 });
 
