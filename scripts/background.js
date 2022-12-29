@@ -12,7 +12,7 @@ chrome.downloads.onCreated.addListener((downloadItem) => {
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
-    "id": "jiraAttachment",
+    "id": jiraContextMenuId,
     "title": "Save JIRA Attachment",
     "contexts": ["link"],
     "documentUrlPatterns": [jiraFilter],
@@ -23,23 +23,26 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     console.log(info);
     //console.log(tab);
-    let pageUrl = info.pageUrl;
-    console.log(pageUrl);
-    regRes = pageUrl.match(reJiraTicketFromUrl);
-    if (regRes) {
-      let ticketNum = regRes[0]
-      console.log(ticketNum)
-      let filename = info.linkUrl.match(reFileFromPath)[0];
-      console.log(filename)
-      newFilename = ticketNum + "_" + filename;
-      console.log(newFilename)
-      chrome.downloads.download({
-        "url": info.linkUrl,
-        "filename": newFilename
-      });
+    if (info.menuItemId == jiraContextMenuId) {
+      let pageUrl = info.pageUrl;
+      console.log(pageUrl);
+      regRes = pageUrl.match(reJiraTicketFromUrl);
+      if (regRes) {
+        let ticketNum = regRes[0]
+        console.log(ticketNum)
+        let filename = info.linkUrl.match(reFileFromPath)[0];
+        console.log(filename)
+        newFilename = ticketNum + "_" + filename;
+        console.log(newFilename)
+        chrome.downloads.download({
+          "url": info.linkUrl,
+          "filename": newFilename
+        });
+      }
     }
 });
 
+const jiraContextMenuId = "jiraAttachment"
 const jiraFilter = "*://jira.configura.com/*"
 const jiraAttachmentLinkFilter = "*://jira.configura.com/secure/attachment/*"
 
